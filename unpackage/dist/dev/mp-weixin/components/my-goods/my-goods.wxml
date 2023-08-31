@@ -1,0 +1,1 @@
+<view class="goods_item"><view class="goods_item_left"><image src="{{item.goods_big_logo}}"></image></view><view class="goods_item_right"><view class="goods-list_name">{{item.goods_name}}</view><view class="goods_item_right_1"><view class="goods-list_price">{{"￥"+item.goods_price}}</view></view></view></view>
