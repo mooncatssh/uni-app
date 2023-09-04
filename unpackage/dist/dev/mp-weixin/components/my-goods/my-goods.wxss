@@ -30,6 +30,9 @@
   justify-content: space-between;
 }
 .goods_item .goods_item_left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 150px;
   height: 150px;
 }
@@ -47,6 +50,11 @@
   color: pink;
   font-size: 15px;
   font-style: italic;
+}
+.goods_item .goods_item_right .goods_item_right_1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .goods_item .goods_item_right .goods-list_price {
   color: yellow;

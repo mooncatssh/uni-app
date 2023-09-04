@@ -51,7 +51,9 @@
 </template>
 
 <script>
+	import badageMix  from "@/mixins/tabbar-badge.js"
 	export default {
+		mixins:[badageMix],
 		data() {
 			return {
 				//轮播图数据列表

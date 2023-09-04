@@ -34,10 +34,26 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex'
+	import {mapState , mapMutations, mapGetters} from 'vuex'
 	export default {
+		// 映射m_cart中的cart商品信息
 		computed:{
-			...mapState('m_cart',['cart'])
+			...mapState('m_cart',['cart']),
+			...mapGetters('m_cart',['total']),
+		},
+		// 监听
+		watch: {
+			// 监听购物车的数量变化
+				total:{
+					handler(newVal){
+					//找到options中的购物车元素
+					const findResult = this.options.find(x => x.text == '购物车' )
+					if(findResult){
+						findResult.info = newVal
+					}
+				},
+				immediate:true
+				}
 		},
 		data() {
 			return {
@@ -50,7 +66,7 @@
 						}, {
 							icon: 'shop',
 							text: '购物车',
-							info: 2,
+							info: 0,
 							infoBackgroundColor:'#007aff',
 							infoColor:"red"
 						}],
@@ -73,6 +89,8 @@
 			this.getGoodsInfo(goods_id)
 		},
 		methods:{
+			...mapMutations('m_cart',['addToCart']),
+			// 获取商品详情页
 			async getGoodsInfo(goods_id){
 				const {data:res} = await uni.$http.get('/api/public/v1/goods/detail',{goods_id})
 				if(res.meta.status!==200) return uni.$showMsg()
@@ -98,7 +116,19 @@
 					}
 				  },
 			buttonClick (e) {
-				    console.log(e)
+				    if(e.content.text === '加入购物车'){
+						// 新建goods对象存储商品信息
+						const goods = {
+							goods_id: this.goodsinfo.goods_id,
+							goods_name: this.goodsinfo.goods_name,
+							goods_price: this.goodsinfo.goods_price,
+							goods_count:1,         //商品数量
+							goods_big_logo: this.goodsinfo.goods_small_logo,
+							goods_state:true       //商品的勾选状态
+						}
+						console.log(goods)
+						this.addToCart(goods)
+					}
 				    
 				  }
 		}

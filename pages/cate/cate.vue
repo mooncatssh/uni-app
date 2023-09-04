@@ -29,7 +29,9 @@
 </template>
 
 <script>
+	import badageMix  from "@/mixins/tabbar-badge.js"
 	export default {
+		mixins:[badageMix],
 		data() {
 			return {
 				//当前可使用的屏幕高度
