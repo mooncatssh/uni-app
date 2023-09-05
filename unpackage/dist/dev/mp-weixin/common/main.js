@@ -30,6 +30,13 @@ _requestMiniprogram.$http.beforeRquest = function (options) {
   uni.showLoading({
     title: '数据请求中...'
   });
+  // 判断当前请求的是否为有权限的接口,如果包含，则返回子字符串在字符串中的索引位置；
+  //如果不包含，则返回-1。如果包含，则返回子字符串在字符串中的索引位置；如果不包含，则返回-1。
+  if (options.url.indexof('/my/') !== -1) {
+    options.header = {
+      Authorization: _store.default.state.m_usr.token
+    };
+  }
 };
 //响应拦截器
 _requestMiniprogram.$http.afterRquest = function (options) {
